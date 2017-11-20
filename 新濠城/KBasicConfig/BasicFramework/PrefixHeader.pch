@@ -1,0 +1,90 @@
+//
+//  PrefixHeader.pch
+//  土爸
+//
+//  Created by 黄凯 on 2016/11/14.
+//  Copyright © 2016年 XHC. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#pragma mark - CocoaPods
+#import <BlocksKit/BlocksKit.h>
+#import <BlocksKit/BlocksKit+UIKit.h>
+#import <Masonry/Masonry.h>
+#import <Toast/UIView+Toast.h>
+#import <MBProgressHUD/MBProgressHUD.h>
+#import <MJRefresh/MJRefresh.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/UIButton+WebCache.h>
+
+#pragma mark - Header
+#import "KBasicConfigHeader.h"
+#import "KOtherFrameworksHeader.h"
+#import "KPublicHeader.h"
+
+#import "KLoginHeader.h"
+#import "KFirstHeader.h"
+#import "KSecondHeader.h"
+#import "KThirdHeader.h"
+#import "KFourthHeader.h"
+
+static NSTimeInterval kPopAnimatedTime = 0.25;
+static NSTimeInterval kToastDurationTime = 2.5f;
+#define KRGB(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
+#define APPColor KRGB(188.f, 160.f, 110.f, 1)
+#define KDLColoc KRGB(120.0, 120.0, 120.0, 1)//分割线颜色
+#define KPHColoc KRGB(150.0, 150.0, 150.0, 1)
+#define RandomColor [UIColor colorWithRed:arc4random_uniform(256)/255.0 green:arc4random_uniform(256)/255.0 blue:arc4random_uniform(256)/255.0 alpha:1]
+
+#pragma mark - Weak Pointer
+#define kWeakfy(var) __weak typeof(var) kWeakSelf = var
+#define kStrongfy(var) __strong typeof(var) kStrongSelf = var
+#define kWeakfyObj(obj) __weak typeof(obj) kWeakSelf_##obj = obj
+#define kStrongfyObj(obj) __strong typeof(obj) kStrongSelf_##obj = obj
+
+#pragma mark - Adaptive
+#define RespondToSel_CurrMode [UIScreen instancesRespondToSelector:@selector(currentMode)]
+#define iPhone4RealSize CGSizeMake(640, 960)
+#define iPhone5RealSize CGSizeMake(640, 1136)
+#define iPhone6RealSize CGSizeMake(750, 1334)
+#define iPhone6PRealSize CGSizeMake(1242, 2208)
+#define iPhoneXRealSize CGSizeMake(1125, 2436)
+
+#define CurrentDeviceRealSize [[[UIScreen mainScreen] currentMode] size]
+#define iPhone4 RespondToSel_CurrMode && CGSizeEqualToSize(iPhone4RealSize, CurrentDeviceRealSize)
+#define iPhone5 RespondToSel_CurrMode && CGSizeEqualToSize(iPhone5RealSize, CurrentDeviceRealSize)
+#define iPhone6 RespondToSel_CurrMode && CGSizeEqualToSize(iPhone6RealSize, CurrentDeviceRealSize)
+#define iPhone6P RespondToSel_CurrMode && CGSizeEqualToSize(iPhone6PRealSize, CurrentDeviceRealSize)
+#define iPhoneX RespondToSel_CurrMode && CGSizeEqualToSize(iPhoneXRealSize, CurrentDeviceRealSize)
+
+#define iPhoneAdapterSize CGSizeMake(1242, 2208)
+#define KIphone6POffsetScale (iPhone6PRealSize.width/iPhoneAdapterSize.width)//((1242/3)/(1080/3))
+#define KIphone6OffsetScale ((3*iPhone6RealSize.width)/(2*iPhoneAdapterSize.width))//((750/2)/(1080/3))
+#define KIphone5OffsetScale ((3*iPhone6RealSize.width)/(2*iPhoneAdapterSize.width))//((3*iPhone5RealSize.width)/(2*iPhoneAdapterSize.width)) 
+
+/* 因为iPhoneAdapterSize属于3倍高清图，所以传入的值font以及lenght是属于三倍图的数字，所以需要除以3 */
+#define SystemBoldFontAll(font) (iPhoneX ? [UIFont systemFontOfSize:ceil(KIphone6POffsetScale*(font / 3))] : (iPhone6P ? [UIFont boldSystemFontOfSize:ceil(KIphone6POffsetScale*(font / 3))] : (iPhone6 ? [UIFont boldSystemFontOfSize:ceil(KIphone6OffsetScale*(font / 3))] : [UIFont boldSystemFontOfSize:ceil(KIphone5OffsetScale*(font / 3))])))
+
+#define SystemFontAll(font) (iPhoneX ? [UIFont systemFontOfSize:ceil(KIphone6POffsetScale*(font / 3))] : (iPhone6P ? [UIFont systemFontOfSize:ceil(KIphone6POffsetScale*(font / 3))] : (iPhone6 ? [UIFont systemFontOfSize:ceil(KIphone6OffsetScale*(font / 3))] : [UIFont systemFontOfSize:ceil(KIphone5OffsetScale*(font / 3))])))
+
+#define KScreenL(length) ceil(iPhoneX ? KIphone6POffsetScale * (length / 3) : (iPhone6P ? KIphone6POffsetScale * (length / 3) : (iPhone6 ? KIphone6OffsetScale * (length / 3) : KIphone5OffsetScale * (length / 3))))
+
+#define STATUS_H (iPhoneX ? (20+24) : 20)
+#define NAVBAR_H (iPhoneX ? 44 : 44)
+#define TABBAR_H (iPhoneX ? (49+34) : 49)
+#define KExtraBottomHeight (iPhoneX ? 34 : 0)
+#define KExtraTopHeight (iPhoneX ? 24 : 0)
+
+#define KOffsetScale (0.15)
+#define KMainScreenScale(length) (length/[UIScreen mainScreen].scale)
+#define KPhysicalLength(length) (length)//物理长度
+#define KScreenW ([UIScreen mainScreen].bounds.size.width)
+#define KScreenH ([UIScreen mainScreen].bounds.size.height)
+
+#endif /* PrefixHeader_pch */

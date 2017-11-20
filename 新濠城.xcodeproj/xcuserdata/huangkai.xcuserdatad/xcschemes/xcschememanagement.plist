@@ -7,7 +7,25 @@
 		<key>新濠城.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>9</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>37D65AB11F73C50C00C6C00C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>37D65AC91F73C50C00C6C00C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>37D65AD41F73C50C00C6C00C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

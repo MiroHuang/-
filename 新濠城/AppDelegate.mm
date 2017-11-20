@@ -2,11 +2,12 @@
 //  AppDelegate.m
 //  新濠城
 //
-//  Created by HuangKai on 2017/9/21.
-//  Copyright © 2017年 HuangKai. All rights reserved.
+//  Created by XHC on 2017/9/21.
+//  Copyright © 2017年 XHC. All rights reserved.
 //
 
 #import "AppDelegate.h"
+#import "UIViewController+KVC.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,23 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [[KRequestURLObject shareInstance] updateRequestURL];
+    [[KRongCloudManager shareInstance] startRongCloud];
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"LoginSuccess"]) {
+        LoginViewController *loginVC = [[LoginViewController alloc] init];
+        BasicNavigationController *basicNavi = [[BasicNavigationController alloc] initWithRootViewController:loginVC];
+        self.window.rootViewController = basicNavi;
+        [self.window makeKeyAndVisible];
+    }else{
+        [[KRongCloudManager shareInstance] loginRongCloud];
+        BasicNavigationController *basicNavi = [[BasicNavigationController alloc] initWithRootViewController:[UIViewController setRootViewController]];
+        self.window.rootViewController = basicNavi;
+        [self.window makeKeyAndVisible];
+    }
+    
+    [application setIdleTimerDisabled:YES];
+    
     return YES;
 }
 
@@ -40,10 +58,12 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [KVersionControlManager versionUpdate];
 }
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
+
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
